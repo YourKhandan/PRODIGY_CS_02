@@ -1,0 +1,10 @@
+services:
+- type: web
+name: pixel-manipulator
+env: python
+plan: free
+build command: pip install -r requirements.txt
+start command: gunicorn run : app
+- key: SECRET_KEY
+  value: 'your-secret-key'
+  autoDeploy: true

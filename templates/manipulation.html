@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Manipulate Files{% endblock %}
+{% block content %}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="p-5 rounded-4 text-center w-100 shadow-lg" style="max-width: 700px; 
+      backdrop-filter: blur(15px); 
+      background: rgba(255, 255, 255, 0.1); 
+      border: 1px solid rgba(255, 255, 255, 0.3); 
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);">
+
+    <div class="bg-dark bg-opacity-50 text-white py-2 px-4 rounded-3 mb-3">
+      <h3 class="m-0">Choose Manipulation</h3>
+    </div>
+
+    <form method="POST" action="{{ url_for('main.process_manipulation') }}">
+
+      <div class="mb-3">
+        <label for="manipulation" class="form-label">Select Manipulation:</label>
+        <select class="form-select" id="manipulation" name="manipulation" required>
+          <option value="grayscale">Grayscale (Intensity controls brightness)</option>
+          <option value="brightness">Brightness Adjustment</option>
+          <option value="contrast">Contrast Adjustment</option>
+          <option value="xor">XOR Encryption</option>
+          <option value="invert">Invert Colors</option>
+          <option value="blur">Blur Effect</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="intensity" class="form-label">Intensity:</label>
+        <div class="d-flex justify-content-between">
+            <span>-100</span>
+            <span>-50</span>
+            <span>0</span>
+            <span>+50</span>
+            <span>+100</span>
+        </div>
+        <input type="range" class="form-range" id="intensity" name="intensity" min="-100" max="100" value="0">
+      </div>
+
+      <button type="submit" id="encryptBtn" class="btn btn-success">Encrypt Files</button>
+
+    </form>
+
+    <div class="mt-4 text-white-50 text-start small">
+  <strong>Manipulation Info:</strong><br>
+  - Grayscale: Convert to black & white (intensity controls brightness)<br>
+  - Brightness: Increase/Decrease overall light<br>
+  - Contrast: Sharpen or flatten differences<br>
+  - XOR: Basic encryption mask<br>
+  - Invert: Inverse colors<br>
+  - Blur: Softens image edges
+</div>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById("encryptBtn").addEventListener("click", function() {
+    this.disabled = true;
+    this.innerText = "Processing...";
+});
+</script>
+{% endblock %}
